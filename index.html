@@ -3,32 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Profil WhatsApp</title>
-  <meta name="description" content="Hubungi saya via WhatsApp." />
-  <link rel="icon" href="data:image/svg+xml;utf8,
-    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'>
-      <circle cx='24' cy='24' r='24' fill='%23128C7E'/>
-      <path fill='white' d='M35 24c0 6.1-4.9 11-11 11-1.9 0-3.6-.5-5.1-1.3L14 35l1.4-4.6C14.5 28.8 14 26.9 14 25c0-6.1 4.9-11 11-11s10 4.9 10 10zM24 16c-5 0-9 4-9 9 0 1.7.5 3.3 1.3 4.7l-.8 2.7 2.8-.8c1.3.8 2.8 1.3 4.7 1.3 5 0 9-4 9-9s-4-9-9-9zm5.7 12.6c-.3-.1-1.9-.9-2.2-1s-.5-.1-.7.1-.8 1-1 1.2-.4.2-.7.1c-.3-.1-1.4-.5-2.7-1.7-1-.9-1.7-2.1-1.9-2.4s0-.5.1-.6c.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5s-.7-1.7-1-2.3c-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.5.1-.8.4s-1 1-1 2.3 1 2.7 1.2 2.9c.1.2 2 3.1 4.8 4.4.7.3 1.3.6 1.7.7.7.2 1.3.2 1.8.1.5-.1 1.9-.8 2.1-1.6.3-.8.3-1.4.2-1.6 0-.1-.2-.1-.5-.2z'/>
-    </svg>"/>
+  <title>Profil WhatsApp - Preland</title>
+  <meta name="description" content="Halaman preland - klik untuk lanjut ke offer" />
   <style>
     :root{
       --wa:#128C7E; --wa-dark:#0f786d; --text:#0f172a; --muted:#6b7280;
-      --bg:#ffffff; --line:#e5e7eb; --footer:#0f1418;
+      --bg:#ffffff; --footer:#0f1418;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      color:var(--text); background:var(--bg);
-      display:flex; flex-direction:column;
+      margin:0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--text); background:var(--bg); display:flex; flex-direction:column;
     }
-    /* Header bar */
     .topbar{
       height:56px; background:var(--wa); display:flex; align-items:center; justify-content:center;
       position:sticky; top:0; z-index:10;
     }
     .topbar svg{ width:22px; height:22px; }
-    /* Main */
     .wrap{ flex:1 0 auto; display:grid; place-items:center; padding:40px 16px; }
     .card{ width:min(880px, 100%); text-align:center; }
     .avatar{
@@ -36,42 +28,34 @@
       margin:8px auto 16px; box-shadow:0 10px 30px rgba(0,0,0,.08);
     }
     .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
-    h1{
-      font-size: clamp(22px, 3.4vw, 28px); margin: 6px 0 4px; letter-spacing:.2px;
-    }
+    h1{ font-size: clamp(22px, 3.4vw, 28px); margin:6px 0 4px; letter-spacing:.2px; }
     .sub{ color:var(--muted); font-size:14px; margin-top:10px; }
     .btn{
       display:inline-flex; align-items:center; gap:10px; justify-content:center;
       background:var(--wa); color:#fff; border:0; padding:14px 22px; border-radius:999px;
       font-weight:600; cursor:pointer; text-decoration:none; box-shadow:0 6px 18px rgba(18,140,126,.28);
-      transition:transform .06s ease, background .2s ease, box-shadow .2s ease;
+      transition:transform .06s ease, background .18s ease, box-shadow .18s ease;
     }
     .btn:active{ transform:translateY(1px) }
     .btn:hover{ background:var(--wa-dark); box-shadow:0 10px 32px rgba(18,140,126,.35) }
-    .btn .ico{ width:18px; height:18px }
+    .ico{ width:18px; height:18px; display:inline-block; vertical-align:middle }
     .mutelink{ color:var(--muted); text-decoration:none; border-bottom:1px dashed #cbd5e1 }
-    .mutelink:hover{ color:#465265; border-bottom-color:#94a3b8 }
-    /* Footer */
-    footer{
-      background:var(--footer); color:#c7d2fe; margin-top:40px;
-    }
+    footer{ background:var(--footer); color:#c7d2fe; margin-top:40px; }
     .footer-inner{ max-width:980px; margin:0 auto; padding:28px 16px 34px; text-align:center; }
     .dl-row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:16px; }
-    .btn-dl{
-      background:#0b1014; color:#e5e7eb; border:1px solid #20242a; padding:10px 16px; border-radius:999px; text-decoration:none; font-weight:600;
-    }
-    .btn-dl:hover{ background:#10161b }
+    .btn-dl{ background:#0b1014; color:#e5e7eb; border:1px solid #20242a; padding:10px 16px; border-radius:999px; text-decoration:none; font-weight:600; }
     .sicons{ display:flex; gap:14px; justify-content:center; margin:14px 0 20px; }
     .sicons a{ width:28px; height:28px; display:inline-grid; place-items:center; border-radius:999px; background:#10161b; border:1px solid #1f2937 }
     .sicons svg{ width:16px; height:16px; fill:#94a3b8 }
-    .brand{
-      width:92px; height:92px; border-radius:999px; background:#0b1014; display:grid; place-items:center;
-      margin:10px auto 6px; border:1px solid #1f2937;
-    }
+    .brand{ width:92px; height:92px; border-radius:999px; background:#0b1014; display:grid; place-items:center; margin:10px auto 6px; border:1px solid #1f2937; }
     .brand svg{ width:44px; height:44px }
     .by{ font-size:12px; color:#9ca3af }
-    /* Small helpers */
-    .space-8{ height:8px } .space-16{ height:16px } .space-24{ height:24px }
+    /* loading spinner small */
+    .spinner {
+      width:18px; height:18px; border-radius:50%; border:2px solid rgba(255,255,255,0.25); border-top-color:#fff;
+      animation:spin 1s linear infinite; display:inline-block;
+    }
+    @keyframes spin{ to{ transform:rotate(360deg) } }
     @media (max-width:480px){
       .wrap{ padding:28px 14px }
       .btn{ width:100% }
@@ -79,42 +63,41 @@
   </style>
 </head>
 <body>
-  <!-- Top bar with chat icon -->
   <div class="topbar" aria-hidden="true">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chat">
       <path fill="#fff" d="M20.52 3.48A11.64 11.64 0 0 0 12 .75C5.99.75 1.1 5.64 1.1 11.67c0 2.1.55 4.05 1.62 5.8L1 23l5.72-1.66a11.57 11.57 0 0 0 5.29 1.3c6.03 0 10.92-4.89 10.92-10.92 0-2.92-1.14-5.67-3.41-8.24z"/>
     </svg>
   </div>
 
-  <!-- Main -->
   <main class="wrap">
-    <section class="card">
+    <section class="card" role="main" aria-labelledby="profileName">
       <div class="avatar"><img id="avatar" src="" alt="Foto profil"></div>
-      <h1 id="displayName">Nama Akun</h1>
-      <div class="space-8"></div>
-      <a id="cta" class="btn" href="#" target="_blank" rel="noopener">
-        <svg class="ico" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M12 2a10 10 0 1 0 6.32 17.77L22 22l-2.23-3.68A10 10 0 0 0 12 2Zm4.64 12.9c-.2.6-1.18 1.14-1.66 1.21-.44.07-1 .1-1.62-.1-.38-.12-.86-.28-1.49-.56-2.62-1.13-4.32-3.77-4.45-3.95-.13-.18-1.06-1.4-1.06-2.68 0-1.28.66-1.9.9-2.16.23-.26.5-.32.66-.32h.47c.14 0 .36-.06.56.43.2.5.68 1.73.74 1.85.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.31-.36.42-.12.12-.25.25-.11.49.13.24.6.98 1.28 1.59.88.79 1.63 1.04 1.88 1.15.25.1.4.09.55-.06.15-.16.64-.75.81-1.01.17-.26.34-.21.56-.12.22.08 1.38.65 1.61.77.23.12.38.18.44.28.06.11.06.63-.14 1.23Z"/></svg>
-        LANJUT KE CHAT
+      <h1 id="profileName">Nama Akun</h1>
+
+      <div style="height:12px"></div>
+
+      <!-- CTA yang akan diarahkan ke offer -->
+      <a id="cta" class="btn" href="#" rel="noopener">
+        <svg class="ico" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path fill="#fff" d="M12 2a10 10 0 1 0 6.32 17.77L22 22l-2.23-3.68A10 10 0 0 0 12 2Zm4.64 12.9c-.2.6-1.18 1.14-1.66 1.21-.44.07-1 .1-1.62-.1-.38-.12-.86-.28-1.49-.56-2.62-1.13-4.32-3.77-4.45-3.95-.13-.18-1.06-1.4-1.06-2.68 0-1.28.66-1.9.9-2.16.23-.26.5-.32.66-.32h.47c.14 0 .36-.06.56.43.2.5.68 1.73.74 1.85.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.31-.36.42-.12.12-.25.25-.11.49.13.24.6.98 1.28 1.59.88.79 1.63 1.04 1.88 1.15.25.1.4.09.55-.06.15-.16.64-.75.81-1.01.17-.26.34-.21.56-.12.22.08 1.38.65 1.61.77.23.12.38.18.44.28.06.11.06.63-.14 1.23Z"/>
+        </svg>
+        <span id="ctaText">LANJUT KE CHAT</span>
       </a>
-      <div class="space-16"></div>
-      <p class="sub">
+
+      <p class="sub" style="margin-top:14px">
         Belum menggunakan WhatsApp?
-        <a id="dlLink" class="mutelink" href="https://vt.tokopedia.com/t/ZSHcdK3Ed8rhN-oDt6F/" target="_blank" rel="noopener">Unduh</a>
+        <a id="dlLink" class="mutelink" href="https://www.whatsapp.com/download" target="_blank" rel="noopener">Unduh</a>
       </p>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer>
     <div class="footer-inner">
       <div class="dl-row">
         <a class="btn-dl" id="dl-android" href="https://play.google.com/store/apps/details?id=com.whatsapp" target="_blank" rel="noopener">UNDUH</a>
-        <!-- Tambahkan opsi lain jika ingin -->
       </div>
 
-      <div class="sicons" id="socials">
-        <!-- ikon sosmed terisi via JS bila URL tersedia -->
-      </div>
+      <div class="sicons" id="socials"></div>
 
       <div class="brand" aria-hidden="true">
         <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -127,60 +110,43 @@
   </footer>
 
   <script>
-    // ==== KONFIGURASI UTAMA ====
+    /**
+     * CONFIG - ubah nilai di sini sesuai kebutuhanmu
+     * - offerLink: LINK OFFER yang ingin dibuka saat tombol diklik.
+     * - openDelay: durasi (ms) tampilan loading sebelum membuka link. (Mis: 700)
+     * - name/avatar: tampilan di halaman.
+     * - preset wa: (opsional) jika ingin tetap gunakan wa somewhere.
+     */
     const CONFIG = {
+      offerLink: "https://www.effectivegatecpm.com/ztq64ga7?key=73eff3d564ed5ace465b967a86312028", // <-- GANTI ke link offer-mu
+      openDelay: 700, // ms, durasi animasi loading sebelum buka offer
       name: "MAIMUNAH VCS",
-      avatar: "https://picsum.photos/id/1011/800/800", // ganti ke foto kamu
-      // Masukkan nomor tanpa + dan tanda hubung. Contoh: 6281234567890
-      phone: "6281234567890",
-      presetText: "Halo, mau chat.",
+      avatar: "https://picsum.photos/id/1011/800/800",
       byline: "by yourbrand",
       socials: {
-        twitter: "",   // contoh: "https://twitter.com/username"
+        twitter: "",
         youtube: "",
         instagram: "",
         facebook: ""
       }
     };
 
-    // ==== OPSIONAL: Bisa override via URL query ====
-    const qs = new URLSearchParams(location.search);
-    const override = (k, def) => qs.get(k) ?? def;
+    // render teks & avatar
+    document.getElementById("profileName").textContent = CONFIG.name;
+    const avatarEl = document.getElementById("avatar");
+    avatarEl.src = CONFIG.avatar;
+    avatarEl.addEventListener("error", ()=> avatarEl.src = "https://via.placeholder.com/800x800.png?text=Avatar");
+    document.getElementById("byline").textContent = CONFIG.byline;
 
-    const state = {
-      name: override("name", CONFIG.name),
-      avatar: override("avatar", CONFIG.avatar),
-      phone: override("phone", CONFIG.phone),
-      presetText: override("text", CONFIG.presetText),
-      byline: override("by", CONFIG.byline),
-      socials: {
-        twitter: override("tw", CONFIG.socials.twitter),
-        youtube: override("yt", CONFIG.socials.youtube),
-        instagram: override("ig", CONFIG.socials.instagram),
-        facebook: override("fb", CONFIG.socials.facebook),
-      }
-    };
-
-    // ==== Render ke halaman ====
-    document.getElementById("displayName").textContent = state.name;
-    document.getElementById("avatar").src = state.avatar;
-    document.getElementById("byline").textContent = state.byline;
-
-    // Link wa.me resmi (tanpa plus)
-    const waLink = `https://wa.me/${state.phone}?text=${encodeURIComponent(state.presetText)}`;
-    const cta = document.getElementById("cta");
-    cta.href = waLink;
-
-    // Sosmed icons
+    // build social icons (hanya yang ada urlnya)
     const ICONS = {
       twitter: `<svg viewBox="0 0 24 24"><path d="M19.6 7.6c.01.16.01.31.01.47 0 4.8-3.66 10.33-10.35 10.33-2.06 0-3.97-.6-5.58-1.64.29.03.58.05.88.05 1.71 0 3.28-.58 4.53-1.55-1.6-.03-2.95-1.08-3.41-2.52.22.04.45.06.69.06.33 0 .65-.04.96-.12-1.67-.34-2.92-1.81-2.92-3.58v-.05c.49.27 1.06.43 1.67.45-1-.67-1.66-1.81-1.66-3.1 0-.68.18-1.31.5-1.86 1.82 2.23 4.53 3.69 7.59 3.85-.06-.27-.1-.56-.1-.85 0-2.05 1.67-3.71 3.72-3.71 1.07 0 2.05.45 2.73 1.18.85-.17 1.65-.48 2.37-.9-.28.88-.88 1.63-1.66 2.1.76-.09 1.48-.3 2.15-.61-.5.75-1.13 1.41-1.86 1.94z"/></svg>`,
       youtube: `<svg viewBox="0 0 24 24"><path d="M23.5 6.2s-.23-1.63-.95-2.35C21.6 3 20.59 3 20.13 2.95 16.82 2.7 12 2.7 12 2.7h-.01s-4.82 0-8.12.26C3.41 3 2.4 3 1.45 3.85.73 4.57.5 6.2.5 6.2S.25 8.08.25 9.96v1.88c0 1.88.25 3.76.25 3.76s.23 1.63.95 2.35c.95.85 2.2.82 2.76.91 2 .2 8.03.26 8.03.26s4.82 0 8.12-.26c.46-.05 1.47-.05 2.42-.9.72-.72.95-2.35.95-2.35s.25-1.88.25-3.76V9.96c0-1.88-.25-3.76-.25-3.76zM9.75 14.25V7.75l6.25 3.25-6.25 3.25z"/></svg>`,
       instagram:`<svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.07 1.2.06 2 .26 2.46.43.62.24 1.06.52 1.53.99.47.47.75.9.99 1.53.17.46.37 1.25.43 2.46.07 1.2.07 1.6.07 4.8s0 3.6-.07 4.8c-.06 1.2-.26 2-.43 2.46-.24.62-.52 1.06-.99 1.53-.47.47-.9.75-1.53.99-.46.17-1.25.37-2.46.43-1.2.07-1.6.07-4.8.07s-3.6 0-4.8-.07c-1.2-.06-2-.26-2.46-.43-.62-.24-1.06-.52-1.53-.99-.47-.47-.75-.9-.99-1.53-.17-.46-.37-1.25-.43-2.46C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.8c.06-1.2.26-2 .43-2.46.24-.62.52-1.06.99-1.53.47-.47.9-.75 1.53-.99.46-.17 1.25-.37 2.46-.43C8.4 2.2 8.8 2.2 12 2.2zm0 2c-3.16 0-3.53 0-4.77.07-.98.05-1.51.21-1.86.35-.47.18-.8.38-1.15.73-.35.35-.55.68-.73 1.15-.14.35-.3.88-.35 1.86C3.07 10.47 3 10.84 3 14s.07 3.53.14 4.77c.05.98.21 1.51.35 1.86.18.47.38.8.73 1.15.35.35.68.55 1.15.73.35.14.88.3 1.86.35C8.47 23.93 8.84 24 12 24s3.53-.07 4.77-.14c.98-.05 1.51-.21 1.86-.35.47-.18.8-.38 1.15-.73.35-.35.55-.68.73-1.15.14-.35.3-.88.35-1.86.07-1.24.14-1.61.14-4.77s-.07-3.53-.14-4.77c-.05-.98-.21-1.51-.35-1.86-.18-.47-.38-.8-.73-1.15a3.1 3.1 0 0 0-1.15-.73c-.35-.14-.88-.3-1.86-.35C15.53 4.07 15.16 4 12 4zm0 2.9a5.1 5.1 0 1 1 0 10.2 5.1 5.1 0 0 1 0-10.2zm0 2a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2zM17.4 5.6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>`,
       facebook:`<svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2.4V12h2.4V9.8c0-2.4 1.4-3.8 3.6-3.8 1 0 2 .18 2 .18v2.2h-1.1c-1.1 0-1.4.68-1.4 1.4V12h2.5l-.4 2.9h-2.1v7A10 10 0 0 0 22 12z"/></svg>`
     };
-
     const socialsWrap = document.getElementById("socials");
-    Object.entries(state.socials).forEach(([k, url])=>{
+    Object.entries(CONFIG.socials).forEach(([k, url])=>{
       if(!url) return;
       const a = document.createElement("a");
       a.href = url; a.target = "_blank"; a.rel = "noopener";
@@ -188,10 +154,71 @@
       socialsWrap.appendChild(a);
     });
 
-    // Fallback avatar jika gagal load
-    document.getElementById("avatar").addEventListener("error", e=>{
-      e.target.src = "https://via.placeholder.com/800x800.png?text=Avatar";
+    // CTA behavior: tampilkan loading singkat lalu buka offer di tab baru.
+    const cta = document.getElementById("cta");
+    const ctaText = document.getElementById("ctaText");
+
+    // Buat elemen spinner tapi jangan tambahkan dulu
+    const spinner = document.createElement("span");
+    spinner.className = "spinner";
+    spinner.setAttribute("aria-hidden", "true");
+
+    let clicked = false;
+    cta.addEventListener("click", function (e) {
+      e.preventDefault();
+      if (clicked) return; // mencegah klik ganda
+      clicked = true;
+
+      // Ganti tampilan tombol -> show spinner + teks
+      ctaText.textContent = "Menghubungkan...";
+      // hapus icon svg supaya rapi (opsional)
+      const svgs = cta.querySelectorAll("svg");
+      svgs.forEach(s=> s.style.display = "none");
+      cta.insertBefore(spinner, ctaText);
+
+      // buka offer di tab baru. Jika browser blok pop-up (window.open null), redirect current page.
+      const openOffer = () => {
+        try {
+          const w = window.open(CONFIG.offerLink, "_blank", "noopener,noreferrer");
+          // jika window.open gagal (pop-up blok), fallback ke location.href
+          if (!w) {
+            // delay kecil supaya user lihat animasi
+            setTimeout(()=> {
+              location.href = CONFIG.offerLink;
+            }, 120);
+          } else {
+            // fokus to new tab usually blocked; nothing more to do
+          }
+        } catch (err) {
+          // fallback
+          setTimeout(()=> { location.href = CONFIG.offerLink; }, 120);
+        }
+      };
+
+      // waktu tunda sebelum membuka (untuk efek realistis)
+      setTimeout(openOffer, CONFIG.openDelay);
+
+      // opsional: setelah beberapa detik, ubah tombol jadi 'Terbuka' dan non-aktifkan
+      setTimeout(()=> {
+        ctaText.textContent = "Terbuka";
+        spinner.remove();
+        cta.classList.add("disabled");
+        cta.style.opacity = "0.9";
+        cta.style.pointerEvents = "none";
+      }, Math.max(1200, CONFIG.openDelay + 600));
     });
+
+    // Jika mau memakai query string override (opsional)
+    // contoh: ?offer=https://linkmu.com&name=Nama
+    (function applyQueryOverrides(){
+      const q = new URLSearchParams(location.search);
+      const offerQ = q.get("offer");
+      const nameQ = q.get("name");
+      const avatarQ = q.get("avatar");
+      if (offerQ) CONFIG.offerLink = offerQ;
+      if (nameQ) document.getElementById("profileName").textContent = nameQ;
+      if (avatarQ) document.getElementById("avatar").src = avatarQ;
+    })();
   </script>
 </body>
 </html>
