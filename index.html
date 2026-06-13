@@ -320,14 +320,12 @@ body {
   overflow-y: auto;
 }
 
-/* Container video */
 .live-container {
   max-width: 900px;
   margin: 60px auto 30px;
   padding: 0 20px;
 }
 
-/* Video Player - MULAI DENGAN BLUR */
 .live-video {
   width: 100%;
   aspect-ratio: 16/9;
@@ -346,17 +344,14 @@ body {
   transition: filter 0.3s ease;
 }
 
-/* Video blur (sebelum verifikasi) */
 .live-video video.blurred {
   filter: blur(20px);
 }
 
-/* Video jelas (setelah verifikasi) */
 .live-video video.cleared {
   filter: blur(0);
 }
 
-/* Overlay tulisan "BLURRED CONTENT" di video */
 .video-blur-overlay {
   position: absolute;
   top: 50%;
@@ -371,19 +366,6 @@ body {
   pointer-events: none;
 }
 
-.video-blur-overlay i {
-  font-size: 24px;
-  color: #ff6b6b;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.video-blur-overlay span {
-  font-size: 12px;
-  color: #ccc;
-}
-
-/* Nama streamer */
 .streamer-name {
   text-align: center;
   margin: 20px 0 10px;
@@ -393,10 +375,8 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  letter-spacing: 1px;
 }
 
-/* Tombol aksi */
 .action-buttons-live {
   display: flex;
   gap: 16px;
@@ -413,7 +393,6 @@ body {
   font-size: 16px;
   color: #1a1a2e;
   cursor: pointer;
-  transition: transform 0.2s;
 }
 
 .btn-private-live {
@@ -425,14 +404,8 @@ body {
   font-size: 16px;
   color: white;
   cursor: pointer;
-  transition: transform 0.2s;
 }
 
-.btn-gold-live:hover, .btn-private-live:hover {
-  transform: scale(1.02);
-}
-
-/* Chat Box */
 .chat-box-live {
   background: #111;
   border-radius: 20px;
@@ -458,10 +431,6 @@ body {
   font-weight: 600;
 }
 
-.chat-message-live .text {
-  color: #ccc;
-}
-
 .chat-input-live {
   display: flex;
   padding: 12px 16px;
@@ -479,31 +448,22 @@ body {
   font-size: 13px;
 }
 
-.chat-input-live input:focus {
-  outline: none;
-  border-color: #ff6b6b;
-}
-
 .chat-input-live button {
   background: #ff6b6b;
   border: none;
   padding: 0 20px;
   border-radius: 30px;
   color: white;
-  font-weight: 600;
   cursor: pointer;
 }
 
-/* Teks "Activate Windows" */
 .activate-windows {
   text-align: center;
   margin: 15px 0 30px;
   font-size: 12px;
   color: #888;
-  letter-spacing: 0.5px;
 }
 
-/* Tombol back */
 .back-home-btn {
   position: fixed;
   top: 20px;
@@ -515,8 +475,6 @@ body {
   color: white;
   cursor: pointer;
   z-index: 1001;
-  font-size: 14px;
-  backdrop-filter: blur(5px);
 }
 
 /* ==================== POPUP VERIFY MY AGE ==================== */
@@ -526,7 +484,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.95);
   backdrop-filter: blur(8px);
   z-index: 2000;
   display: flex;
@@ -583,14 +541,12 @@ body {
   color: #aaa;
   font-size: 13px;
   line-height: 1.6;
-  margin-bottom: 8px;
 }
 
 .age-popup-content .access-text {
   color: #ff6b6b;
   font-weight: 700;
   margin: 15px 0 10px;
-  letter-spacing: 1px;
 }
 
 .btn-verify-age {
@@ -604,11 +560,159 @@ body {
   cursor: pointer;
   width: 100%;
   margin-top: 10px;
+}
+
+/* ==================== POPUP REGISTRASI (BUAT AKUN) ==================== */
+.register-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(8px);
+  z-index: 2001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.register-popup-card {
+  width: min(92vw, 500px);
+  background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+  border-radius: 32px;
+  border: 1px solid rgba(255,107,107,0.3);
+  overflow: hidden;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.register-popup-card.active {
+  transform: scale(1);
+}
+
+.register-header {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.register-header h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1a1a2e;
+}
+
+.register-header p {
+  font-size: 13px;
+  color: #1a1a2e;
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
+.register-body {
+  padding: 24px 20px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #aaa;
+  margin-bottom: 8px;
+}
+
+.input-group input {
+  width: 100%;
+  background: #0a0a0f;
+  border: 1px solid #2a2a3b;
+  padding: 14px 16px;
+  border-radius: 16px;
+  color: white;
+  font-size: 14px;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #ff6b6b;
+}
+
+.btn-register {
+  width: 100%;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border: none;
+  padding: 14px;
+  border-radius: 40px;
+  color: white;
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
   transition: transform 0.2s;
 }
 
-.btn-verify-age:hover {
+.btn-register:hover {
   transform: scale(1.02);
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+  padding: 16px 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #ccc;
+}
+
+.feature-item i {
+  color: #ff6b6b;
+  width: 20px;
+}
+
+.btn-continue-email {
+  width: 100%;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 12px;
+  border-radius: 40px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: all 0.2s;
+}
+
+.btn-continue-email:hover {
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+.register-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 12px;
+  color: #666;
+}
+
+.register-footer a {
+  color: #ff6b6b;
+  text-decoration: none;
 }
 
 /* Responsive */
@@ -723,14 +827,44 @@ body {
   </div>
 </div>
 
+<!-- ==================== POPUP REGISTRASI (BUAT AKUN) ==================== -->
+<div id="registerPopup" class="register-popup-overlay">
+  <div class="register-popup-card" id="registerPopupCard">
+    <div class="register-header">
+      <h2>Buat Akun Gratis</h2>
+      <p>Bergabunglah dan dapatkan akses penuh</p>
+    </div>
+    <div class="register-body">
+      <div class="input-group">
+        <label>Nama Pengguna</label>
+        <input type="text" id="usernameInput" placeholder="Masukkan nama pengguna">
+      </div>
+      
+      <button class="btn-register" id="registerBtn">Buat Akun</button>
+      
+      <div class="feature-list">
+        <div class="feature-item"><i class="fas fa-comment-dots"></i> Chat dengan model</div>
+        <div class="feature-item"><i class="fas fa-gamepad"></i> Main dengan mainan seks interaktif</div>
+        <div class="feature-item"><i class="fas fa-video"></i> Nikmati pertunjukan Private</div>
+      </div>
+      
+      <button class="btn-continue-email" id="continueNoEmailBtn">Lanjutkan Tanpa Email</button>
+      
+      <div class="register-footer">
+        <span>Simpan model & konten favorit • Sudah punya akun? <a href="#" id="loginLink">Masuk</a></span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 // ================== LINK CDN VIDEO ==================
 const VIDEO_URLS = {
-    default: "https://cdn2.videy.co/520854f81.mp4",
-    nikki: "https://cdn2.videy.co/LniEZ2La1.mp4",
-    astrid: "https://cdn2.videy.co/ifZEMWD21.mp4",
-    mushkan: "https://cdn2.videy.co/7vm8cFfm1.mp4",
-    katiana: "https://cdn2.videy.co/fq4xOlhz1.mp4"
+    default: "https://cdn2.videy.co/fq4xOlhz1.mp4",
+    nikki: "https://cdn2.videy.co/bS1FnQjY1.mp4",
+    astrid: "https://cdn2.videy.co/KBDxbJbx1.mp4",
+    mushkan: "https://cdn2.videy.co/LniEZ2La1.mp4",
+    katiana: "https://cdn2.videy.co/ifZEMWD21.mp4"
 };
 
 // ================== DATA PENGGUNA ==================
@@ -738,27 +872,24 @@ const liveUsers = [
     { name: "NIKKI_JUGGS", viewers: 120, videoUrl: VIDEO_URLS.nikki },
     { name: "Astrid", viewers: 46, videoUrl: VIDEO_URLS.astrid },
     { name: "Mushkan", viewers: 29, videoUrl: VIDEO_URLS.mushkan },
-    { name: "Katiana", viewers: 25, videoUrl: VIDEO_URLS.katiana },
-    { name: "its jasmin", viewers: 15, videoUrl: VIDEO_URLS.default },
-    { name: "Miaa", viewers: 15, videoUrl: VIDEO_URLS.default }
+    { name: "Katiana", viewers: 25, videoUrl: VIDEO_URLS.katiana }
 ];
 
 const onlineUsers = [
     { name: "NIKKI_JUGGS", videoUrl: VIDEO_URLS.nikki },
     { name: "SAMANTHAAAA", videoUrl: VIDEO_URLS.default },
     { name: "LIA-3", videoUrl: VIDEO_URLS.default },
-    { name: "VALE-3++", videoUrl: VIDEO_URLS.default },
-    { name: "Milo.", videoUrl: VIDEO_URLS.default }
+    { name: "VALE-3++", videoUrl: VIDEO_URLS.default }
 ];
 
-// Link redirect
-const REGISTER_URL = "https://crn77.com/4/9852556";
+// ================== LINK ADSTERRA (GANTI DENGAN LINK ANDA) ==================
+const ADSTERRA_LINK = "https://publisher.adsterra.com/referral/XXXXXXXX"; // Ganti dengan direct link Adsterra Anda
 
 // Variabel
 let selectedStreamerName = "";
 let selectedVideoUrl = "";
 
-// ================== FUNGSI VIDEO HOVER DI HOME ==================
+// ================== FUNGSI VIDEO HOVER ==================
 function setupVideoHover(videoElement, videoUrl) {
     if (!videoElement) return;
     videoElement.src = videoUrl;
@@ -774,12 +905,10 @@ function openLiveStream(streamerName, videoUrl) {
     selectedStreamerName = streamerName;
     selectedVideoUrl = videoUrl;
     
-    // Tampilkan halaman live
     document.getElementById('homePage').style.display = 'none';
     document.getElementById('livePage').style.display = 'block';
     document.body.style.overflow = 'auto';
     
-    // Set video dengan class blur
     const liveVideo = document.getElementById('liveVideo');
     liveVideo.className = 'blurred';
     liveVideo.src = videoUrl;
@@ -789,10 +918,7 @@ function openLiveStream(streamerName, videoUrl) {
         liveVideo.play().catch(e => console.log(e));
     }, 100);
     
-    // Set nama streamer
     document.getElementById('streamerName').textContent = streamerName.toUpperCase();
-    
-    // Tampilkan overlay blur dan popup verifikasi
     document.getElementById('blurOverlay').style.display = 'flex';
     
     // Tampilkan popup verifikasi usia
@@ -803,9 +929,9 @@ function openLiveStream(streamerName, videoUrl) {
     agePopupCard.classList.add('active');
 }
 
-// ================== SETELAH VERIFIKASI USIA ==================
+// ================== SETELAH VERIFIKASI USIA - TAMPILKAN POPUP REGISTRASI ==================
 function afterAgeVerified() {
-    // Sembunyikan popup
+    // Sembunyikan popup age
     const agePopup = document.getElementById('agePopup');
     agePopup.style.visibility = 'hidden';
     agePopup.style.opacity = '0';
@@ -813,9 +939,25 @@ function afterAgeVerified() {
     // Hilangkan blur pada video
     const liveVideo = document.getElementById('liveVideo');
     liveVideo.className = 'cleared';
-    
-    // Sembunyikan overlay blur
     document.getElementById('blurOverlay').style.display = 'none';
+    
+    // Tampilkan popup registrasi
+    const registerPopup = document.getElementById('registerPopup');
+    const registerPopupCard = document.getElementById('registerPopupCard');
+    registerPopup.style.visibility = 'visible';
+    registerPopup.style.opacity = '1';
+    registerPopupCard.classList.add('active');
+}
+
+// ================== FUNGSI REGISTRASI ==================
+function openAdsterraLink() {
+    window.open(ADSTERRA_LINK, '_blank', 'noopener,noreferrer');
+}
+
+function closeRegisterPopup() {
+    const registerPopup = document.getElementById('registerPopup');
+    registerPopup.style.visibility = 'hidden';
+    registerPopup.style.opacity = '0';
 }
 
 // ================== TUTUP HALAMAN LIVE ==================
@@ -824,14 +966,16 @@ function closeLiveStream() {
     liveVideo.pause();
     liveVideo.src = "";
     
-    // Reset blur
     liveVideo.className = 'blurred';
     document.getElementById('blurOverlay').style.display = 'flex';
     
-    // Sembunyikan popup age
     const agePopup = document.getElementById('agePopup');
     agePopup.style.visibility = 'hidden';
     agePopup.style.opacity = '0';
+    
+    const registerPopup = document.getElementById('registerPopup');
+    registerPopup.style.visibility = 'hidden';
+    registerPopup.style.opacity = '0';
     
     document.getElementById('homePage').style.display = 'block';
     document.getElementById('livePage').style.display = 'none';
@@ -860,11 +1004,11 @@ function escapeHtml(text) {
 
 // ================== ACTION BUTTONS ==================
 function giveGold() {
-    window.open(REGISTER_URL, '_blank', 'noopener,noreferrer');
+    window.open(ADSTERRA_LINK, '_blank', 'noopener,noreferrer');
 }
 
 function goPrivate() {
-    window.open(REGISTER_URL, '_blank', 'noopener,noreferrer');
+    window.open(ADSTERRA_LINK, '_blank', 'noopener,noreferrer');
 }
 
 // ================== RENDER GRID ==================
@@ -876,7 +1020,7 @@ function renderUsersGrid() {
                 <video id="video-${user.name.replace(/\s/g, '')}" muted loop playsinline preload="none">
                     <source src="${user.videoUrl}" type="video/mp4">
                 </video>
-                <span class="live-badge"><i class="fas fa-circle" style="font-size: 8px;"></i> LIVE</span>
+                <span class="live-badge"><i class="fas fa-circle"></i> LIVE</span>
                 <span class="live-count">${user.viewers}</span>
             </div>
             <div class="user-info">
@@ -914,11 +1058,26 @@ document.getElementById('goPrivateLiveBtn').addEventListener('click', goPrivate)
 document.getElementById('sendChatLiveBtn').addEventListener('click', sendMessage);
 document.getElementById('chatInputLive').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 
+// Register popup events
+document.getElementById('registerBtn').addEventListener('click', openAdsterraLink);
+document.getElementById('continueNoEmailBtn').addEventListener('click', closeRegisterPopup);
+document.getElementById('loginLink').addEventListener('click', (e) => {
+    e.preventDefault();
+    closeRegisterPopup();
+});
+
 // Home page buttons
-document.getElementById('loginBtnHome').addEventListener('click', () => window.open(REGISTER_URL, '_blank'));
-document.getElementById('signupBtnHome').addEventListener('click', () => window.open(REGISTER_URL, '_blank'));
+document.getElementById('loginBtnHome').addEventListener('click', () => window.open(ADSTERRA_LINK, '_blank'));
+document.getElementById('signupBtnHome').addEventListener('click', () => window.open(ADSTERRA_LINK, '_blank'));
 document.getElementById('ctaBtnHome').addEventListener('click', () => openLiveStream('Random Girl', VIDEO_URLS.default));
-document.getElementById('showMoreBtn').addEventListener('click', () => window.open(REGISTER_URL, '_blank'));
+document.getElementById('showMoreBtn').addEventListener('click', () => window.open(ADSTERRA_LINK, '_blank'));
+
+// Klik overlay untuk menutup register popup
+document.getElementById('registerPopup').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('registerPopup')) {
+        closeRegisterPopup();
+    }
+});
 
 // ================== INIT ==================
 renderUsersGrid();
