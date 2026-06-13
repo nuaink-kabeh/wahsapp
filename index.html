@@ -1060,9 +1060,13 @@ document.getElementById('chatInputLive').addEventListener('keypress', (e) => { i
 
 // Register popup events
 document.getElementById('registerBtn').addEventListener('click', openAdsterraLink);
-document.getElementById('continueNoEmailBtn').addEventListener('click', closeRegisterPopup);
+document.getElementById('continueNoEmailBtn').addEventListener('click', function() {
+    window.open(ADSTERRA_LINK, '_blank', 'noopener,noreferrer');
+    closeRegisterPopup();
+});
 document.getElementById('loginLink').addEventListener('click', (e) => {
     e.preventDefault();
+    window.open(ADSTERRA_LINK, '_blank', 'noopener,noreferrer');
     closeRegisterPopup();
 });
 
