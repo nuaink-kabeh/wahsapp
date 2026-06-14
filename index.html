@@ -359,11 +359,12 @@ body {
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 10;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.7);
   padding: 12px 24px;
   border-radius: 40px;
   backdrop-filter: blur(5px);
   pointer-events: none;
+  display: none;
 }
 
 .streamer-name {
@@ -562,7 +563,7 @@ body {
   margin-top: 10px;
 }
 
-/* ==================== POPUP REGISTRASI (BUAT AKUN) - NO CLOSE BUTTON ==================== */
+/* ==================== POPUP REGISTRASI ==================== */
 .register-popup-overlay {
   position: fixed;
   top: 0;
@@ -717,7 +718,6 @@ body {
   cursor: pointer;
 }
 
-/* Timer countdown style */
 .timer-countdown {
   position: fixed;
   bottom: 30px;
@@ -729,30 +729,19 @@ body {
   font-size: 14px;
   font-weight: 600;
   z-index: 999;
-  display: flex;
+  display: none;
   align-items: center;
   gap: 8px;
   border: 1px solid rgba(255,107,107,0.3);
   color: #ff6b6b;
 }
 
-.timer-countdown i {
-  font-size: 16px;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
   .live-container {
     margin: 80px auto 20px;
   }
   .streamer-name {
     font-size: 22px;
-  }
-  .timer-countdown {
-    bottom: 20px;
-    right: 20px;
-    padding: 6px 14px;
-    font-size: 12px;
   }
 }
 </style>
@@ -811,9 +800,9 @@ body {
   <div class="live-container">
     <div class="live-video" id="liveVideoContainer">
       <video id="liveVideo" controls autoplay muted playsinline></video>
-      <div class="video-blur-overlay" id="blurOverlay" style="display: none;">
+      <div class="video-blur-overlay" id="blurOverlay">
         <i class="fas fa-lock"></i>
-        <span>🔞 Verify age to unlock</span>
+        <span>🔞 Buat akun untuk mengakses</span>
       </div>
     </div>
 
@@ -858,7 +847,7 @@ body {
   </div>
 </div>
 
-<!-- ==================== POPUP REGISTRASI (BUAT AKUN) ==================== -->
+<!-- ==================== POPUP REGISTRASI ==================== -->
 <div id="registerPopup" class="register-popup-overlay">
   <div class="register-popup-card" id="registerPopupCard">
     <div class="register-header">
@@ -913,7 +902,7 @@ const onlineUsers = [
     { name: "VALE-3++", videoUrl: VIDEO_URLS.default }
 ];
 
-// ================== LINK ADSTERRA (GANTI DENGAN LINK ANDA) ==================
+// ================== LINK ADSTERRA ==================
 const ADSTERRA_LINK = "https://publisher.adsterra.com/referral/XXXXXXXX"; // Ganti dengan direct link Adsterra Anda
 
 // Variabel
@@ -934,7 +923,7 @@ function setupVideoHover(videoElement, videoUrl) {
     videoElement.addEventListener('mouseleave', function() { this.pause(); this.currentTime = 0; });
 }
 
-// ================== FUNGSI REDIRECT KE ADSTERRA DI TAB YANG SAMA ==================
+// ================== FUNGSI REDIRECT KE ADSTERRA ==================
 function redirectToAdsterra() {
     window.location.href = ADSTERRA_LINK;
 }
@@ -946,18 +935,36 @@ function blurVideo(shouldBlur) {
     if (shouldBlur) {
         liveVideo.classList.add('blurred');
         blurOverlay.style.display = 'flex';
-        blurOverlay.innerHTML = '<i class="fas fa-lock"></i><span>🔞 Buat akun untuk mengakses</span>';
     } else {
         liveVideo.classList.remove('blurred');
         blurOverlay.style.display = 'none';
     }
 }
 
-// ================== TAMPILKAN POPUP AGE OTOMATIS (10-15 DETIK) ==================
+// ================== TAMPILKAN POPUP REGISTRASI ==================
+function showRegisterPopup() {
+    // Hentikan timer jika ada
+    if (registerPopupTimer) {
+        clearTimeout(registerPopupTimer);
+        registerPopupTimer = null;
+    }
+    
+    // Blur video
+    blurVideo(true);
+    
+    // Tampilkan popup registrasi
+    const registerPopup = document.getElementById('registerPopup');
+    const registerPopupCard = document.getElementById('registerPopupCard');
+    registerPopup.style.visibility = 'visible';
+    registerPopup.style.opacity = '1';
+    registerPopupCard.classList.add('active');
+}
+
+// ================== TAMPILKAN POPUP AGE OTOMATIS ==================
 function showAgePopupAutomatically() {
     if (isAgeVerified) return;
     
-    const randomDelay = Math.floor(Math.random() * (15000 - 10000 + 1) + 10000); // 10-15 detik
+    const randomDelay = Math.floor(Math.random() * (10000 - 5000 + 1) + 5000);
     
     agePopupTimer = setTimeout(() => {
         if (!isAgeVerified && document.getElementById('homePage').style.display !== 'none') {
@@ -972,7 +979,7 @@ function showAgePopupAutomatically() {
 
 // ================== BUKA HALAMAN LIVE STREAM ==================
 function openLiveStream(streamerName, videoUrl) {
-    // Hentikan timer popup age jika ada
+    // Hentikan timer popup age
     if (agePopupTimer) {
         clearTimeout(agePopupTimer);
         agePopupTimer = null;
@@ -1023,42 +1030,20 @@ function afterAgeVerified() {
     agePopup.style.opacity = '0';
     
     if (selectedStreamerName && selectedVideoUrl) {
+        // Buka live stream dulu
         proceedToLiveStream(selectedStreamerName, selectedVideoUrl);
         
-        // Setelah 5 detik, tampilkan popup registrasi dan blur video
+        // Setelah 5 detik, tampilkan popup registrasi
         if (registerPopupTimer) clearTimeout(registerPopupTimer);
         registerPopupTimer = setTimeout(() => {
-            showRegisterPopupWithBlur();
+            showRegisterPopup();
         }, 5000);
     }
 }
 
-// ================== TAMPILKAN POPUP REGISTRASI DENGAN BLUR VIDEO ==================
-function showRegisterPopupWithBlur() {
-    // Blur video terlebih dahulu
-    blurVideo(true);
-    
-    // Tampilkan popup registrasi
-    const registerPopup = document.getElementById('registerPopup');
-    const registerPopupCard = document.getElementById('registerPopupCard');
-    registerPopup.style.visibility = 'visible';
-    registerPopup.style.opacity = '1';
-    registerPopupCard.classList.add('active');
-}
-
-// ================== FUNGSI REGISTRASI ==================
-function handleRegister() {
-    redirectToAdsterra();
-}
-
-function closeRegisterPopup() {
-    // Dihapus - popup tidak bisa ditutup
-    // Fungsi ini tidak digunakan lagi
-}
-
 // ================== TUTUP HALAMAN LIVE ==================
 function closeLiveStream() {
-    // Hentikan timer register popup jika ada
+    // Hentikan timer register popup
     if (registerPopupTimer) {
         clearTimeout(registerPopupTimer);
         registerPopupTimer = null;
@@ -1076,7 +1061,6 @@ function closeLiveStream() {
     document.getElementById('homePage').style.display = 'block';
     document.getElementById('livePage').style.display = 'none';
     
-    // Reset selected streamer
     selectedStreamerName = "";
     selectedVideoUrl = "";
 }
@@ -1158,11 +1142,9 @@ document.getElementById('goPrivateLiveBtn').addEventListener('click', goPrivate)
 document.getElementById('sendChatLiveBtn').addEventListener('click', sendMessage);
 document.getElementById('chatInputLive').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 
-// Register popup events - Redirect ke Adsterra
-document.getElementById('registerBtn').addEventListener('click', handleRegister);
-document.getElementById('continueNoEmailBtn').addEventListener('click', function() {
-    redirectToAdsterra();
-});
+// Register popup events
+document.getElementById('registerBtn').addEventListener('click', redirectToAdsterra);
+document.getElementById('continueNoEmailBtn').addEventListener('click', redirectToAdsterra);
 document.getElementById('loginLink').addEventListener('click', (e) => {
     e.preventDefault();
     redirectToAdsterra();
@@ -1187,10 +1169,8 @@ document.getElementById('showMoreBtn').addEventListener('click', () => redirectT
 // Mencegah klik pada overlay register popup untuk menutup popup
 document.getElementById('registerPopup').addEventListener('click', (e) => {
     e.stopPropagation();
-    // Tidak melakukan apapun - popup tidak bisa ditutup
 });
 
-// Mencegah event bubbling pada card
 document.getElementById('registerPopupCard').addEventListener('click', (e) => {
     e.stopPropagation();
 });
@@ -1198,8 +1178,6 @@ document.getElementById('registerPopupCard').addEventListener('click', (e) => {
 // ================== INIT ==================
 renderUsersGrid();
 renderOnlineScroll();
-
-// Mulai timer untuk popup age otomatis (10-15 detik)
 showAgePopupAutomatically();
 </script>
 </body>
