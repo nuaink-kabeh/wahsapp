@@ -900,8 +900,10 @@ body {
 
 <script>
 // ================== CONFIG ==================
+const ADSTERRA_LINK = "https://publisher.adsterra.com/referral/XXXXXXXX"; // Ganti dengan link Adsterra Anda
+
 const VIDEO_URLS = {
-    default: "https://cdn2.videy.co/fq4xOlhz1.mp4",  // tambahkan default
+    default: "https://cdn2.videy.co/fq4xOlhz1.mp4",
     indri: "https://cdn2.videy.co/fq4xOlhz1.mp4",
     nikki: "https://cdn2.videy.co/bS1FnQjY1.mp4",
     astrid: "https://cdn2.videy.co/KBDxbJbx1.mp4",
@@ -922,12 +924,12 @@ const VIDEO_URLS = {
     reni: "https://cdn2.slicedrive.com/eF8a0hc41.mp4"
 };
 
-// Dynamic user data with status changes - GUNAKAN KEY YANG SUDAH ADA
-let liveUsers = [
+// Data user (akan diacak urutannya setiap halaman dimuat)
+let liveUsersOriginal = [
     { id: 0, name: "NIKKI_JUGGS", viewers: 120, videoUrl: VIDEO_URLS.nikki, isLive: true, typing: false, statusMsg: null },
     { id: 1, name: "Astrid", viewers: 46, videoUrl: VIDEO_URLS.astrid, isLive: true, typing: false, statusMsg: null },
-    { id: 2, name: "Nissa", viewers: 29, videoUrl: VIDEO_URLS.nissa, isLive: true, typing: false, statusMsg: null },      // ganti mushkan ke nissa
-    { id: 3, name: "Karina", viewers: 25, videoUrl: VIDEO_URLS.karina, isLive: true, typing: false, statusMsg: null },    // ganti katiana ke karina
+    { id: 2, name: "Nissa", viewers: 29, videoUrl: VIDEO_URLS.nissa, isLive: true, typing: false, statusMsg: null },
+    { id: 3, name: "Karina", viewers: 25, videoUrl: VIDEO_URLS.karina, isLive: true, typing: false, statusMsg: null },
     { id: 4, name: "Tiara", viewers: 89, videoUrl: VIDEO_URLS.tiara, isLive: true, typing: false, statusMsg: null },
     { id: 5, name: "Rika", viewers: 67, videoUrl: VIDEO_URLS.rika, isLive: true, typing: false, statusMsg: null },
     { id: 6, name: "Resa", viewers: 54, videoUrl: VIDEO_URLS.resa, isLive: true, typing: false, statusMsg: null },
@@ -945,7 +947,7 @@ let liveUsers = [
     { id: 18, name: "Sasha_Sexy", viewers: 0, videoUrl: VIDEO_URLS.default, isLive: false, typing: false, statusMsg: "Offline" }
 ];
 
-const onlineUsers = [
+let onlineUsersOriginal = [
     { name: "NIKKI_JUGGS", videoUrl: VIDEO_URLS.nikki, isOnline: true },
     { name: "Astrid", videoUrl: VIDEO_URLS.astrid, isOnline: true },
     { name: "Nissa", videoUrl: VIDEO_URLS.nissa, isOnline: true },
@@ -954,15 +956,29 @@ const onlineUsers = [
     { name: "LIA-3", videoUrl: VIDEO_URLS.default, isOnline: true },
     { name: "VALE-3++", videoUrl: VIDEO_URLS.default, isOnline: false, statusMsg: "Offline" }
 ];
+
+// Variabel global yang akan diacak
+let liveUsers = [];
+let onlineUsers = [];
+
 let selectedStreamerName = "";
 let selectedVideoUrl = "";
 let isAgeVerified = false;
 let agePopupTimer = null;
 let registerPopupTimer = null;
 let isRegisterPopupShown = false;
-
-// Random updater for dynamic feel
 let randomInterval = null;
+
+// ================== FUNGSI SHUFFLE (ACAK URUTAN) ==================
+function shuffleArray(array) {
+    // Buat copy array agar tidak merusak array asli
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
 
 // ================== DYNAMIC UPDATES ==================
 function startRandomUpdates() {
@@ -1052,7 +1068,6 @@ function renderUsersGrid() {
 function renderOnlineScroll() {
     const scroll = document.getElementById('onlineScroll');
     scroll.innerHTML = onlineUsers.map(user => {
-        const onlineClass = user.isOnline ? 'online-dot' : '';
         const statusText = user.isOnline ? 'Online' : (user.statusMsg || 'Offline');
         return `
             <div class="online-item" onclick="openLiveStream('${user.name.replace(/'/g, "\\'")}', '${user.videoUrl}', ${user.isOnline})">
@@ -1185,6 +1200,7 @@ function showAgePopupAutomatically() {
 
 // ================== UTILITIES ==================
 function redirectToAdsterra() { window.location.href = ADSTERRA_LINK; }
+
 function sendMessage() {
     const input = document.getElementById('chatInputLive');
     const message = input.value.trim();
@@ -1194,7 +1210,12 @@ function sendMessage() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
     input.value = '';
 }
-function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+
+function escapeHtml(text) { 
+    const div = document.createElement('div'); 
+    div.textContent = text; 
+    return div.innerHTML; 
+}
 
 // ================== EVENT LISTENERS ==================
 document.getElementById('verifyAgeBtn').addEventListener('click', afterAgeVerified);
@@ -1217,6 +1238,10 @@ document.getElementById('registerPopup').addEventListener('click', (e) => e.stop
 document.getElementById('registerPopupCard').addEventListener('click', (e) => e.stopPropagation());
 
 // ================== INIT ==================
+// ACAK URUTAN SETIAP HALAMAN DIMUAT (REFRESH)
+liveUsers = shuffleArray(liveUsersOriginal);
+onlineUsers = shuffleArray(onlineUsersOriginal);
+
 renderUsersGrid();
 renderOnlineScroll();
 showAgePopupAutomatically();
