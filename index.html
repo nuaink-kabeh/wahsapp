@@ -32,7 +32,6 @@ body {
   background: #0a0a0a;
 }
 
-/* Header */
 .header {
   background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(10px);
@@ -105,7 +104,6 @@ body {
   cursor: pointer;
 }
 
-/* Hero */
 .hero {
   max-width: 1200px;
   margin: 40px auto;
@@ -137,7 +135,6 @@ body {
   font-size: 13px;
 }
 
-/* Users Grid */
 .section-title {
   max-width: 1200px;
   margin: 30px auto 16px;
@@ -718,24 +715,6 @@ body {
   cursor: pointer;
 }
 
-.timer-countdown {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(10px);
-  padding: 10px 20px;
-  border-radius: 50px;
-  font-size: 14px;
-  font-weight: 600;
-  z-index: 999;
-  display: none;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid rgba(255,107,107,0.3);
-  color: #ff6b6b;
-}
-
 @media (max-width: 768px) {
   .live-container {
     margin: 80px auto 20px;
@@ -911,6 +890,7 @@ let selectedVideoUrl = "";
 let isAgeVerified = false;
 let agePopupTimer = null;
 let registerPopupTimer = null;
+let isRegisterPopupShown = false;
 
 // ================== FUNGSI VIDEO HOVER ==================
 function setupVideoHover(videoElement, videoUrl) {
@@ -943,6 +923,9 @@ function blurVideo(shouldBlur) {
 
 // ================== TAMPILKAN POPUP REGISTRASI ==================
 function showRegisterPopup() {
+    if (isRegisterPopupShown) return;
+    isRegisterPopupShown = true;
+    
     // Hentikan timer jika ada
     if (registerPopupTimer) {
         clearTimeout(registerPopupTimer);
@@ -964,7 +947,7 @@ function showRegisterPopup() {
 function showAgePopupAutomatically() {
     if (isAgeVerified) return;
     
-    const randomDelay = Math.floor(Math.random() * (10000 - 5000 + 1) + 5000);
+    const randomDelay = Math.floor(Math.random() * (15000 - 10000 + 1) + 10000);
     
     agePopupTimer = setTimeout(() => {
         if (!isAgeVerified && document.getElementById('homePage').style.display !== 'none') {
@@ -979,6 +962,9 @@ function showAgePopupAutomatically() {
 
 // ================== BUKA HALAMAN LIVE STREAM ==================
 function openLiveStream(streamerName, videoUrl) {
+    // Reset flag popup registrasi
+    isRegisterPopupShown = false;
+    
     // Hentikan timer popup age
     if (agePopupTimer) {
         clearTimeout(agePopupTimer);
@@ -1019,6 +1005,19 @@ function proceedToLiveStream(streamerName, videoUrl) {
     
     document.getElementById('streamerName').textContent = streamerName.toUpperCase();
     document.getElementById('blurOverlay').style.display = 'none';
+    
+    // Jika sudah terverifikasi dan masuk ke live stream, jalankan timer untuk popup registrasi
+    if (isAgeVerified) {
+        // Hentikan timer sebelumnya jika ada
+        if (registerPopupTimer) {
+            clearTimeout(registerPopupTimer);
+            registerPopupTimer = null;
+        }
+        // Set timer 5 detik untuk menampilkan popup registrasi
+        registerPopupTimer = setTimeout(() => {
+            showRegisterPopup();
+        }, 5000);
+    }
 }
 
 // ================== SETELAH VERIFIKASI USIA ==================
@@ -1030,14 +1029,8 @@ function afterAgeVerified() {
     agePopup.style.opacity = '0';
     
     if (selectedStreamerName && selectedVideoUrl) {
-        // Buka live stream dulu
+        // Buka live stream
         proceedToLiveStream(selectedStreamerName, selectedVideoUrl);
-        
-        // Setelah 5 detik, tampilkan popup registrasi
-        if (registerPopupTimer) clearTimeout(registerPopupTimer);
-        registerPopupTimer = setTimeout(() => {
-            showRegisterPopup();
-        }, 5000);
     }
 }
 
@@ -1048,6 +1041,9 @@ function closeLiveStream() {
         clearTimeout(registerPopupTimer);
         registerPopupTimer = null;
     }
+    
+    // Reset flag
+    isRegisterPopupShown = false;
     
     const liveVideo = document.getElementById('liveVideo');
     liveVideo.pause();
@@ -1155,6 +1151,8 @@ document.getElementById('loginBtnHome').addEventListener('click', () => redirect
 document.getElementById('signupBtnHome').addEventListener('click', () => redirectToAdsterra());
 document.getElementById('ctaBtnHome').addEventListener('click', () => {
     if (!isAgeVerified) {
+        selectedStreamerName = "Random Girl";
+        selectedVideoUrl = VIDEO_URLS.default;
         const agePopup = document.getElementById('agePopup');
         const agePopupCard = document.getElementById('agePopupCard');
         agePopup.style.visibility = 'visible';
