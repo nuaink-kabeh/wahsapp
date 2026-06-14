@@ -1010,21 +1010,19 @@ function startRandomUpdates() {
         const newUsers = Math.floor(Math.random() * 5) + 1;
         document.getElementById('newUsersCount').innerText = newUsers;
         
-        // Randomly change status messages
-        if (Math.random() > 0.8) {
-            const randomUser = liveUsers.find(u => u.isLive && Math.random() > 0.5);
-            if (randomUser) {
-                const messages = ["💬 typing...", "🎵 listening to music", "📸 taking photos", "💃 dancing", "🎮 playing games"];
-                randomUser.statusMsg = messages[Math.floor(Math.random() * messages.length)];
-                setTimeout(() => {
-                    if (randomUser.statusMsg) randomUser.statusMsg = null;
-                    renderUsersGrid();
-                }, 3000);
+        // HANYA UPDATE ANGKA DI DOM, TIDAK MERENDER ULANG SELURUH GRID
+        // Cukup update text content viewer count yang sudah ada
+        liveUsers.forEach(user => {
+            if (user.isLive) {
+                const viewerSpan = document.querySelector(`#video-${user.id}`)?.parentElement?.querySelector('.viewer-count');
+                if (viewerSpan) {
+                    viewerSpan.innerHTML = `<i class="fas fa-eye"></i> ${user.viewers}`;
+                }
             }
-        }
+        });
         
+    }, 5000);
 }
-
 // ================== RENDER GRID ==================
 function renderUsersGrid() {
     const grid = document.getElementById('usersGrid');
