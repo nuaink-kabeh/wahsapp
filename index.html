@@ -901,6 +901,7 @@ body {
 <script>
 // ================== CONFIG ==================
 const VIDEO_URLS = {
+    default: "https://cdn2.videy.co/fq4xOlhz1.mp4",  // tambahkan default
     indri: "https://cdn2.videy.co/fq4xOlhz1.mp4",
     nikki: "https://cdn2.videy.co/bS1FnQjY1.mp4",
     astrid: "https://cdn2.videy.co/KBDxbJbx1.mp4",
@@ -914,33 +915,45 @@ const VIDEO_URLS = {
     zahra: "https://cdn2.videy.co/wc6ROGmu1.mp4",
     fitri: "https://cdn2.videy.co/7vm8cFfm1.mp4",
     erni: "https://cdn2.videy.co/UHBP7s621.mp4",
-    nikki: "https://cdn2.videy.co/Fi8EHCb41.mp4",
     regina: "https://cdn2.videy.co/YAe2eUfg1.mp4",
-    tina ca: "https://cdn2.aceimg.com/uzNN9Y7qp.mp4",
+    tina_ca: "https://cdn2.aceimg.com/uzNN9Y7qp.mp4",
     via: "https://cdn2.slicedrive.com/J9uD64eQ1.mp4",
     syifa: "https://cdn2.aceimg.com/dnNzyBjAX.mp4",
     reni: "https://cdn2.slicedrive.com/eF8a0hc41.mp4"
 };
 
-const ADSTERRA_LINK = "https://publisher.adsterra.com/referral/XXXXXXXX";
-
-// Dynamic user data with status changes
+// Dynamic user data with status changes - GUNAKAN KEY YANG SUDAH ADA
 let liveUsers = [
     { id: 0, name: "NIKKI_JUGGS", viewers: 120, videoUrl: VIDEO_URLS.nikki, isLive: true, typing: false, statusMsg: null },
     { id: 1, name: "Astrid", viewers: 46, videoUrl: VIDEO_URLS.astrid, isLive: true, typing: false, statusMsg: null },
-    { id: 2, name: "Mushkan", viewers: 29, videoUrl: VIDEO_URLS.mushkan, isLive: true, typing: false, statusMsg: null },
-    { id: 3, name: "Katiana", viewers: 25, videoUrl: VIDEO_URLS.katiana, isLive: true, typing: false, statusMsg: null },
-    { id: 4, name: "Mila_Queen", viewers: 0, videoUrl: VIDEO_URLS.default, isLive: false, typing: false, statusMsg: "Left the stream" },
-    { id: 5, name: "Sasha_Sexy", viewers: 0, videoUrl: VIDEO_URLS.default, isLive: false, typing: false, statusMsg: "Offline" }
+    { id: 2, name: "Nissa", viewers: 29, videoUrl: VIDEO_URLS.nissa, isLive: true, typing: false, statusMsg: null },      // ganti mushkan ke nissa
+    { id: 3, name: "Karina", viewers: 25, videoUrl: VIDEO_URLS.karina, isLive: true, typing: false, statusMsg: null },    // ganti katiana ke karina
+    { id: 4, name: "Tiara", viewers: 89, videoUrl: VIDEO_URLS.tiara, isLive: true, typing: false, statusMsg: null },
+    { id: 5, name: "Rika", viewers: 67, videoUrl: VIDEO_URLS.rika, isLive: true, typing: false, statusMsg: null },
+    { id: 6, name: "Resa", viewers: 54, videoUrl: VIDEO_URLS.resa, isLive: true, typing: false, statusMsg: null },
+    { id: 7, name: "Tiwi", viewers: 43, videoUrl: VIDEO_URLS.tiwi, isLive: true, typing: false, statusMsg: null },
+    { id: 8, name: "Mila", viewers: 38, videoUrl: VIDEO_URLS.mila, isLive: true, typing: false, statusMsg: null },
+    { id: 9, name: "Zahra", viewers: 32, videoUrl: VIDEO_URLS.zahra, isLive: true, typing: false, statusMsg: null },
+    { id: 10, name: "Fitri", viewers: 28, videoUrl: VIDEO_URLS.fitri, isLive: true, typing: false, statusMsg: null },
+    { id: 11, name: "Erni", viewers: 24, videoUrl: VIDEO_URLS.erni, isLive: true, typing: false, statusMsg: null },
+    { id: 12, name: "Regina", viewers: 21, videoUrl: VIDEO_URLS.regina, isLive: true, typing: false, statusMsg: null },
+    { id: 13, name: "Tina", viewers: 18, videoUrl: VIDEO_URLS.tina_ca, isLive: true, typing: false, statusMsg: null },
+    { id: 14, name: "Via", viewers: 15, videoUrl: VIDEO_URLS.via, isLive: true, typing: false, statusMsg: null },
+    { id: 15, name: "Syifa", viewers: 12, videoUrl: VIDEO_URLS.syifa, isLive: true, typing: false, statusMsg: null },
+    { id: 16, name: "Reni", viewers: 9, videoUrl: VIDEO_URLS.reni, isLive: true, typing: false, statusMsg: null },
+    { id: 17, name: "Mila_Queen", viewers: 0, videoUrl: VIDEO_URLS.default, isLive: false, typing: false, statusMsg: "Left the stream" },
+    { id: 18, name: "Sasha_Sexy", viewers: 0, videoUrl: VIDEO_URLS.default, isLive: false, typing: false, statusMsg: "Offline" }
 ];
 
 const onlineUsers = [
     { name: "NIKKI_JUGGS", videoUrl: VIDEO_URLS.nikki, isOnline: true },
+    { name: "Astrid", videoUrl: VIDEO_URLS.astrid, isOnline: true },
+    { name: "Nissa", videoUrl: VIDEO_URLS.nissa, isOnline: true },
+    { name: "Karina", videoUrl: VIDEO_URLS.karina, isOnline: true },
     { name: "SAMANTHAAAA", videoUrl: VIDEO_URLS.default, isOnline: false, statusMsg: "Away" },
     { name: "LIA-3", videoUrl: VIDEO_URLS.default, isOnline: true },
     { name: "VALE-3++", videoUrl: VIDEO_URLS.default, isOnline: false, statusMsg: "Offline" }
 ];
-
 let selectedStreamerName = "";
 let selectedVideoUrl = "";
 let isAgeVerified = false;
