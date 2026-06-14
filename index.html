@@ -888,6 +888,7 @@ const ADSTERRA_LINK = "https://publisher.adsterra.com/referral/XXXXXXXX"; // Gan
 // Variabel
 let selectedStreamerName = "";
 let selectedVideoUrl = "";
+let isAgeVerified = false; // Status verifikasi usia
 
 // ================== FUNGSI VIDEO HOVER ==================
 function setupVideoHover(videoElement, videoUrl) {
@@ -900,8 +901,32 @@ function setupVideoHover(videoElement, videoUrl) {
     videoElement.addEventListener('mouseleave', function() { this.pause(); this.currentTime = 0; });
 }
 
+// ================== FUNGSI REDIRECT KE ADSTERRA DI TAB YANG SAMA ==================
+function redirectToAdsterra() {
+    window.location.href = ADSTERRA_LINK;
+}
+
 // ================== BUKA HALAMAN LIVE STREAM ==================
 function openLiveStream(streamerName, videoUrl) {
+    if (!isAgeVerified) {
+        // Simpan data streamer untuk digunakan setelah verifikasi
+        selectedStreamerName = streamerName;
+        selectedVideoUrl = videoUrl;
+        
+        // Tampilkan popup verifikasi usia di halaman utama
+        const agePopup = document.getElementById('agePopup');
+        const agePopupCard = document.getElementById('agePopupCard');
+        agePopup.style.visibility = 'visible';
+        agePopup.style.opacity = '1';
+        agePopupCard.classList.add('active');
+        return;
+    }
+    
+    // Jika sudah terverifikasi, langsung masuk ke live stream
+    proceedToLiveStream(streamerName, videoUrl);
+}
+
+function proceedToLiveStream(streamerName, videoUrl) {
     selectedStreamerName = streamerName;
     selectedVideoUrl = videoUrl;
     
@@ -920,44 +945,57 @@ function openLiveStream(streamerName, videoUrl) {
     
     document.getElementById('streamerName').textContent = streamerName.toUpperCase();
     document.getElementById('blurOverlay').style.display = 'flex';
-    
-    // Tampilkan popup verifikasi usia
-    const agePopup = document.getElementById('agePopup');
-    const agePopupCard = document.getElementById('agePopupCard');
-    agePopup.style.visibility = 'visible';
-    agePopup.style.opacity = '1';
-    agePopupCard.classList.add('active');
 }
 
 // ================== SETELAH VERIFIKASI USIA - TAMPILKAN POPUP REGISTRASI ==================
 function afterAgeVerified() {
+    isAgeVerified = true;
+    
     // Sembunyikan popup age
     const agePopup = document.getElementById('agePopup');
     agePopup.style.visibility = 'hidden';
     agePopup.style.opacity = '0';
     
-    // Hilangkan blur pada video
-    const liveVideo = document.getElementById('liveVideo');
-    liveVideo.className = 'cleared';
-    document.getElementById('blurOverlay').style.display = 'none';
-    
-    // Tampilkan popup registrasi
-    const registerPopup = document.getElementById('registerPopup');
-    const registerPopupCard = document.getElementById('registerPopupCard');
-    registerPopup.style.visibility = 'visible';
-    registerPopup.style.opacity = '1';
-    registerPopupCard.classList.add('active');
+    // Jika ada streamer yang dipilih, buka live stream dan tampilkan popup registrasi
+    if (selectedStreamerName && selectedVideoUrl) {
+        proceedToLiveStream(selectedStreamerName, selectedVideoUrl);
+        
+        // Hilangkan blur pada video setelah registrasi nanti
+        // Tampilkan popup registrasi
+        setTimeout(() => {
+            const registerPopup = document.getElementById('registerPopup');
+            const registerPopupCard = document.getElementById('registerPopupCard');
+            registerPopup.style.visibility = 'visible';
+            registerPopup.style.opacity = '1';
+            registerPopupCard.classList.add('active');
+        }, 500);
+    } else {
+        // Tampilkan popup registrasi di halaman utama
+        const registerPopup = document.getElementById('registerPopup');
+        const registerPopupCard = document.getElementById('registerPopupCard');
+        registerPopup.style.visibility = 'visible';
+        registerPopup.style.opacity = '1';
+        registerPopupCard.classList.add('active');
+    }
 }
 
 // ================== FUNGSI REGISTRASI ==================
-function openAdsterraLink() {
-    window.open(ADSTERRA_LINK, '_blank', 'noopener,noreferrer');
+function handleRegister() {
+    // Redirect ke Adsterra di tab yang sama (bukan tab baru)
+    redirectToAdsterra();
 }
 
 function closeRegisterPopup() {
     const registerPopup = document.getElementById('registerPopup');
     registerPopup.style.visibility = 'hidden';
     registerPopup.style.opacity = '0';
+    
+    // Hilangkan blur pada video jika live stream sedang terbuka
+    const liveVideo = document.getElementById('liveVideo');
+    if (liveVideo && liveVideo.classList && liveVideo.classList.contains('blurred')) {
+        liveVideo.className = 'cleared';
+        document.getElementById('blurOverlay').style.display = 'none';
+    }
 }
 
 // ================== TUTUP HALAMAN LIVE ==================
@@ -1004,11 +1042,11 @@ function escapeHtml(text) {
 
 // ================== ACTION BUTTONS ==================
 function giveGold() {
-    window.open(ADSTERRA_LINK, '_blank', 'noopener,noreferrer');
+    redirectToAdsterra();
 }
 
 function goPrivate() {
-    window.open(ADSTERRA_LINK, '_blank', 'noopener,noreferrer');
+    redirectToAdsterra();
 }
 
 // ================== RENDER GRID ==================
@@ -1058,23 +1096,34 @@ document.getElementById('goPrivateLiveBtn').addEventListener('click', goPrivate)
 document.getElementById('sendChatLiveBtn').addEventListener('click', sendMessage);
 document.getElementById('chatInputLive').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 
-// Register popup events
-document.getElementById('registerBtn').addEventListener('click', openAdsterraLink);
+// Register popup events - Redirect ke Adsterra di tab yang sama
+document.getElementById('registerBtn').addEventListener('click', handleRegister);
 document.getElementById('continueNoEmailBtn').addEventListener('click', function() {
-    window.open(ADSTERRA_LINK, '_blank', 'noopener,noreferrer');
+    redirectToAdsterra();
     closeRegisterPopup();
 });
 document.getElementById('loginLink').addEventListener('click', (e) => {
     e.preventDefault();
-    window.open(ADSTERRA_LINK, '_blank', 'noopener,noreferrer');
+    redirectToAdsterra();
     closeRegisterPopup();
 });
 
-// Home page buttons
-document.getElementById('loginBtnHome').addEventListener('click', () => window.open(ADSTERRA_LINK, '_blank'));
-document.getElementById('signupBtnHome').addEventListener('click', () => window.open(ADSTERRA_LINK, '_blank'));
-document.getElementById('ctaBtnHome').addEventListener('click', () => openLiveStream('Random Girl', VIDEO_URLS.default));
-document.getElementById('showMoreBtn').addEventListener('click', () => window.open(ADSTERRA_LINK, '_blank'));
+// Home page buttons - Redirect ke Adsterra di tab yang sama
+document.getElementById('loginBtnHome').addEventListener('click', () => redirectToAdsterra());
+document.getElementById('signupBtnHome').addEventListener('click', () => redirectToAdsterra());
+document.getElementById('ctaBtnHome').addEventListener('click', () => {
+    // Cek verifikasi usia terlebih dahulu
+    if (!isAgeVerified) {
+        const agePopup = document.getElementById('agePopup');
+        const agePopupCard = document.getElementById('agePopupCard');
+        agePopup.style.visibility = 'visible';
+        agePopup.style.opacity = '1';
+        agePopupCard.classList.add('active');
+    } else {
+        openLiveStream('Random Girl', VIDEO_URLS.default);
+    }
+});
+document.getElementById('showMoreBtn').addEventListener('click', () => redirectToAdsterra());
 
 // Klik overlay untuk menutup register popup
 document.getElementById('registerPopup').addEventListener('click', (e) => {
